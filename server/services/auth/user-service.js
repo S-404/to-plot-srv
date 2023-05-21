@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const UserDto = require('../../dtos/user-dto')
 const tokenService = require('./token-service')
 const mailService = require('./mail-service')
-const {UsersModel, TokensModel} = require('../../databases/users')
+const {UsersModel, TokensModel} = require('../../database/models')
 const {Op} = require('sequelize')
 const uuid = require('uuid')
 
