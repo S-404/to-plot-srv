@@ -16,10 +16,10 @@ app.use(cookieParser())
 app.use(cors({credentials: true, origin: process.env.CLIENT_URL}))
 
 app.use('/auth', authRouter)
-app.use(authMiddleware)
+app.use(authMiddleware) //req.user = userData
 app.use(apiErrorMiddleware)
 
-app.use('/api/users',usersRouter)
+app.use('/api/user',usersRouter)
 app.listen(PORT, function () {
 	console.log(`Server is running on port ${PORT}`)
 })

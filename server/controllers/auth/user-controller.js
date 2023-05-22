@@ -56,6 +56,15 @@ class UserController {
 		}
 	}
 
+	async reactivate(req,res,next){
+		try{
+			const userId = req.user.userId
+			return  await userService.reactivate(userId)
+		}catch (e){
+			next(e)
+		}
+	}
+
 	async refreshToken(req, res, next) {
 		try {
 			const {refreshToken} = req.cookies

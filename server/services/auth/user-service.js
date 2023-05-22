@@ -75,6 +75,16 @@ class UserService {
 		await user.save()
 	}
 
+	async reactivate(userId){
+		const user = await UsersModel.findOne({where: {id:userId}})
+		if(!user){
+			throw ApiError.BadRequest(`User not found`)
+		}
+		await mailService.sendActivationMail(user.email, `${process.env.API_URL}/auth/activate/${user.activationLink}`)
+		const userDto = new UserDto(user)
+		return {user: userDto}
+	}
+
 	async getAllUsers() {
 		return await UsersModel.findAll({
 			attributes: ['id', 'username']
