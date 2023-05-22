@@ -8,7 +8,7 @@ export const userApi = createApi({
     baseQuery: baseQueryWithReAuth,
     endpoints: (builder) => ({
         getUsers: builder.query<IUser[], number>({
-            query: () => 'api/users/all',
+            query: () => 'api/user/all',
         }),
     })
 })

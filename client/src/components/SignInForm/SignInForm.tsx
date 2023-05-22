@@ -22,7 +22,7 @@ const SignInForm: FC = () => {
     useEffect(() => {
         if (isError && error) {
             const err = error as IAuthErrorResponse
-            setErrorMessage(err.data.message)
+            setErrorMessage(err?.data?.message)
         }
     }, [isError, error])
 
