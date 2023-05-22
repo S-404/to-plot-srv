@@ -3,6 +3,9 @@ import LoginPage from "../pages/LoginPage";
 import RegistrationPage from "../pages/RegistrationPage";
 import UserPage from "../pages/UserPage";
 import {FC} from "react";
+import MessagesPage from "../pages/MessagesPage";
+import FilesPage from "../pages/FilesPage";
+import MeetingsPage from "../pages/MeetingsPage";
 
 interface RoutesTypes {
     path: string,
@@ -19,5 +22,8 @@ export const publicRoutes: RoutesTypes[] = [
 export const privateRoutes: RoutesTypes[] = [
     {path: '/', component: HomePage},
     {path: '/user', component: UserPage},
+    {path: '/messages', component: MessagesPage},
+    {path: '/files', component: FilesPage},
+    {path: '/meetings', component: MeetingsPage},
     {path: '/*', component: HomePage},
 ]
