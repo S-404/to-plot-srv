@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      path: {
+      fullPath: {
         type: Sequelize.TEXT,
         allowNull: false,
       },

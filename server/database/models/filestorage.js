@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 
     FileStorage.init({
         userId: DataTypes.INTEGER,
-        path: DataTypes.TEXT
+        fullPath: DataTypes.TEXT
     }, {
         sequelize,
         modelName: 'FileStorage',
