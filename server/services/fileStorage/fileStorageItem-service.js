@@ -15,7 +15,7 @@ class FileStorageItemService {
             throw ApiError.BadRequest(`This destination already contains a ${type} named '${name}'`)
         }
 
-        const fileStorage = await FileStorageService.getFileStorage(userId)
+        const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
         const parent = parentItemId ? await this.getFileStorageItem({userId, id: parentItemId}) : fileStorage
         const fullPath = `${parent.fullPath}/${name}`
         const ext = type === "file" ? this.#defineExt(name) : null
@@ -31,15 +31,36 @@ class FileStorageItemService {
     }
 
     async getFileStorageItem({userId, id}) {
-
+        const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
+        return await FileStorageItemsModel.findOne({
+            where: {
+                fileStorageId: fileStorage.id,
+                id
+            }
+        })
     }
 
     async updateFileStorageItem({userId, name, parentItemId, id}) {
+        const item = await this.getFileStorageItem({userId, id})
 
+        if (!item) {
+            throw ApiError.BadRequest(`File storage item with id '${id}' is not found`)
+        }
+
+        item.name = name
+        item.parentItemId = parentItemId
+
+        return await item.save()
     }
 
     async deleteFileStorageItem({userId, id}) {
+        const item = await this.getFileStorageItem({userId, id})
 
+        if (!item) {
+            throw ApiError.BadRequest(`File storage item with id '${id}' is not found`)
+        }
+
+        return await item.destroy()
     }
 }
 

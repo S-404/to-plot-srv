@@ -14,7 +14,7 @@ class FileStorageController {
     async getFileStorage(req, res, next) {
         try {
             const {userId} = req.user
-            const fsData = await fileStorageService.getFileStorage(userId)
+            const fsData = await fileStorageService.getFileStorageByUserId(userId)
             return res.json(fsData)
         } catch (e) {
             next(e)

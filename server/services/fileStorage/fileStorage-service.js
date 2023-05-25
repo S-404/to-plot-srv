@@ -9,13 +9,13 @@ class FileStorageService {
         })
     }
 
-    async getFileStorage(userId) {
+    async getFileStorageByUserId(userId) {
         return await FileStoragesModel.findOne({where: {userId}})
     }
 
 
     async getAllContent(userId) {
-        const fs = await this.getFileStorage(userId)
+        const fs = await this.getFileStorageByUserId(userId)
         if (!fs) {
             ApiError.BadRequest("not found fileStorage")
         }
