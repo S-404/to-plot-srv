@@ -1,4 +1,4 @@
-const FileStorageItemsModel = require('../../database/models')
+const {FileStorageItemsModel} = require('../../database/models')
 const ApiError = require('../../exceptions/api-error')
 const FileStorageService = require('./fileStorage-service')
 
@@ -47,8 +47,13 @@ class FileStorageItemService {
             throw ApiError.BadRequest(`File storage item with id '${id}' is not found`)
         }
 
+        const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
+        const parent = parentItemId ? await this.getFileStorageItem({userId, id: parentItemId}) : fileStorage
+        const fullPath = `${parent.fullPath}/${name}`
+
         item.name = name
         item.parentItemId = parentItemId
+        item.fullPath = fullPath
 
         return await item.save()
     }

@@ -2,34 +2,41 @@ const {FileStoragesModel, FileStorageItemsModel} = require('../../database/model
 const ApiError = require("../../exceptions/api-error");
 
 class FileStorageService {
-    async createFileStorage(userId) {
-        return await FileStoragesModel.create({
-            userId,
-            path: `${Date.now()}`
-        })
-    }
 
     async getFileStorageByUserId(userId) {
-        return await FileStoragesModel.findOne({where: {userId}})
+        const fs = await FileStoragesModel.findOne({where: {userId}})
+        if (!fs) {
+            return await FileStoragesModel.create({
+                userId,
+                fullPath: `${Date.now()}`
+            })
+        }
+        return fs
     }
 
 
     async getAllContent(userId) {
         const fs = await this.getFileStorageByUserId(userId)
         if (!fs) {
-            ApiError.BadRequest("not found fileStorage")
+            throw ApiError.BadRequest("not found fileStorage")
         }
-        const content = await FileStorageItemsModel.find({where: {fileStorageId: fs.id}})
-        const avatar = content.filter(item => item.type === "avatar")
-        const folders = content.filter(item => item.type === "folder")
-        const files = content.filter(item => item.type === "file")
-        const fileStorageItems = [...folders,...files]
-        return {
-            avatar,
-            folders,
-            files,
-            fileStorageItems
+
+        const content = await FileStorageItemsModel.findOne({where: {fileStorageId: fs.id}})
+        const result = {
+            avatar: [],
+            folders: [],
+            files: [],
+            fileStorageItems: []
         }
+
+        if (content) {
+            result.avatar = content.filter(item => item.type === "avatar")
+            result.folders = content.filter(item => item.type === "folder")
+            result.files = content.filter(item => item.type === "file")
+            result.fileStorageItems = [...result.folders, ...result.items]
+        }
+
+        return result
     }
 
 }

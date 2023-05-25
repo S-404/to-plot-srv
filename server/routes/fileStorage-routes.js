@@ -4,7 +4,6 @@ const FileStorageController = require('../controllers/fileStorage/fileStorage-co
 const FileStorageItemController = require('../controllers/fileStorage/fileStorageItem-controller')
 
 //storage
-router.post('/storage', FileStorageController.createFileStorage)
 router.get('/storage', FileStorageController.getFileStorage)
 router.get('/all-content', FileStorageController.getAllContent)
 
