@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             this.hasMany(models.TokensModel, {foreignKey: 'userId'})
-            this.hasOne(models.ProfilesModel, {foreignKey: 'userId'})
+            this.hasOne(models.FileStoragesModel, {foreignKey: 'userId'})
         }
     }
 
