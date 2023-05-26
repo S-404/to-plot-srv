@@ -5,8 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
-import {useTypedSelector} from "../../../hooks/useTypedSelector";
-import {authApi} from "../../../services/authService";
+import {useTypedSelector} from "../../lib/hooks/useTypedSelector";
+import {authApi} from "../../../features/auth/authService";
 import MyDrawer from "../MyDrawer/MyDrawer";
 
 const MyAppBar: FC = () => {

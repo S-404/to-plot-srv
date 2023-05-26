@@ -1,8 +1,8 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {IUserCredentials} from "../models/IUser";
-import {setAuth} from "../store/authSlicer";
-import {baseQueryWithReAuth} from "../api/interceptor";
-import {IAuthResponse} from "../models/IAuthResponse";
+import {IUserCredentials} from "./models/IUser";
+import {setAuth} from "../../app/store/authSlicer";
+import {baseQueryWithReAuth} from "../../shared/api/interceptor";
+import {IAuthResponse} from "./models/IAuthResponse";
 
 export const API_URL = process.env.REACT_APP_SERVER_URL
 export const authApiNoInterceptor = createApi({

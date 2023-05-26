@@ -8,11 +8,11 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {authApi} from "../../services/authService";
+import {authApi} from "../../authService";
 import {Link} from "react-router-dom";
 import {IAuthErrorResponse} from "../../models/IAuthResponse";
-import MyAlert from "../UI/MyAlert";
-import {color} from "../UI/types/TypesMUI";
+import MyAlert from "../../../../shared/UI/MyAlert";
+import {color} from "../../../../shared/UI/types/TypesMUI";
 
 
 const SignInForm: FC = () => {

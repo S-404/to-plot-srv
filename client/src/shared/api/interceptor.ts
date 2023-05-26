@@ -1,5 +1,5 @@
 import {BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
-import {IAuthResponse} from "../models/IAuthResponse";
+import {IAuthResponse} from "../../features/auth/models/IAuthResponse";
 
 export const API_URL = process.env.REACT_APP_SERVER_URL
 
@@ -9,7 +9,7 @@ const baseQuery = fetchBaseQuery({
         if (!headers.has("Authorization")) {
             headers.set("Authorization", `Bearer ${localStorage.getItem('token')}`);
         }
-        return headers;
+        return headers
     },
     credentials: "include"
 })

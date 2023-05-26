@@ -1,11 +1,11 @@
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/LoginPage";
-import RegistrationPage from "../pages/RegistrationPage";
-import UserPage from "../pages/UserPage";
+import HomePage from "../../pages/HomePage";
+import LoginPage from "../../pages/LoginPage";
+import RegistrationPage from "../../pages/RegistrationPage";
+import UserPage from "../../pages/UserPage";
 import {FC} from "react";
-import MessagesPage from "../pages/MessagesPage";
-import FilesPage from "../pages/FilesPage";
-import MeetingsPage from "../pages/MeetingsPage";
+import MessagesPage from "../../pages/MessagesPage";
+import FilesPage from "../../pages/FilesPage";
+import MeetingsPage from "../../pages/MeetingsPage";
 
 interface RoutesTypes {
     path: string,
