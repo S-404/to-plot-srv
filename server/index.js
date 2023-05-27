@@ -5,6 +5,7 @@ require('dotenv').config()
 
 const authRouter = require('./routes/auth-routes')
 const usersRouter = require('./routes/users-routes')
+const fileStorageRouter = require('./routes/fileStorage-routes')
 const apiErrorMiddleware = require('./middlewares/error-middleware')
 const authMiddleware = require('./middlewares/auth-middleware')
 
@@ -19,7 +20,8 @@ app.use('/auth', authRouter)
 app.use(authMiddleware) //req.user = userData
 app.use(apiErrorMiddleware)
 
-app.use('/api/user',usersRouter)
+app.use('/api/user', usersRouter)
+app.use('/api/file-storage', fileStorageRouter)
 app.listen(PORT, function () {
 	console.log(`Server is running on port ${PORT}`)
 })
