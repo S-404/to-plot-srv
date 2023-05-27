@@ -1,16 +1,16 @@
-import React, {FC} from 'react';
+import React, {FC} from "react";
+import {Link} from "react-router-dom";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import BackupIcon from "@mui/icons-material/Backup";
+import DuoIcon from "@mui/icons-material/Duo";
+import EmailIcon from "@mui/icons-material/Email";
+import {SvgIconProps} from "@mui/material";
+import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import EmailIcon from '@mui/icons-material/Email';
-import BackupIcon from '@mui/icons-material/Backup';
-import DuoIcon from '@mui/icons-material/Duo';
-import {Link} from "react-router-dom";
-import {SvgIconProps} from "@mui/material";
 
 interface IListItems {
     title: string;
@@ -19,13 +19,12 @@ interface IListItems {
 }
 
 const listItems: IListItems[] = [
-    {title: 'Profile', icon: <AccountBoxIcon/>, link: 'user'},
-    {title: 'Messages', icon: <EmailIcon/>, link: '/messages'},
-    {title: 'File Storage', icon: <BackupIcon/>, link: '/files'},
-    {title: 'Meetings', icon: <DuoIcon/>, link: '/meetings'},
-]
+    {title: "Profile", icon: <AccountBoxIcon/>, link: "user"},
+    {title: "Messages", icon: <EmailIcon/>, link: "/messages"},
+    {title: "File Storage", icon: <BackupIcon/>, link: "/files"},
+    {title: "Meetings", icon: <DuoIcon/>, link: "/meetings"},
+];
 const DrawerList: FC = () => {
-
     return (
         <>
             <List>

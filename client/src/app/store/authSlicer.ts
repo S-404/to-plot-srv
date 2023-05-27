@@ -6,19 +6,19 @@ export interface IAuthState {
 
 const initialState: IAuthState = {
     isAuth: false
-}
+};
 
 
 const authSlice = createSlice({
-    name: 'authSlice',
+    name: "authSlice",
     initialState,
     reducers: {
         setAuth: (state, action: PayloadAction<boolean>) => {
-            state.isAuth = action.payload
+            state.isAuth = action.payload;
         }
     },
     extraReducers: {}
-})
+});
 
-export default authSlice.reducer
-export const {setAuth} = authSlice.actions
+export default authSlice.reducer;
+export const {setAuth} = authSlice.actions;

@@ -1,11 +1,12 @@
-import React, {FC} from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import IconButton from "@mui/material/IconButton";
+import React, {FC} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+
 import DrawerList from "./DrawerList";
 
-const ANCHOR = 'left'
+const ANCHOR = "left";
 const MyDrawer: FC = () => {
     const [isVisible, setIsVisible] = React.useState<boolean>(false);
     const toggleDrawer = (open: boolean) => () => {

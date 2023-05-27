@@ -1,25 +1,26 @@
-import React, {FC} from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import {useNavigate} from 'react-router-dom';
-import {useTypedSelector} from "../../lib/hooks/useTypedSelector";
-import {authApi} from "../../../features/auth/authService";
+import React, {FC} from "react";
+import {useNavigate} from "react-router-dom";
+import {authApi} from "@features/auth/authService";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import {useTypedSelector} from "@shared/lib/hooks/useTypedSelector";
+
 import MyDrawer from "../MyDrawer/MyDrawer";
 
 const MyAppBar: FC = () => {
-    const {isAuth} = useTypedSelector(state => state.auth)
-    const [logout,] = authApi.useLogoutMutation()
-    const navigate = useNavigate()
+    const {isAuth} = useTypedSelector(state => state.auth);
+    const [logout,] = authApi.useLogoutMutation();
+    const navigate = useNavigate();
     const loginButtonHandler = () => {
-        navigate('/login')
-    }
+        navigate("/login");
+    };
     const logoutButtonHandler = () => {
-        logout(null)
-        navigate('/')
-    }
+        logout(null);
+        navigate("/");
+    };
 
     return (
         <Box sx={{flexGrow: 1}}>

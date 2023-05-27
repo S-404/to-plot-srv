@@ -1,5 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC} from "react";
 import {Alert, AlertTitle} from "@mui/material";
+
 import {color} from "./types/TypesMUI";
 
 interface IMyAlertProps {
@@ -10,8 +11,10 @@ interface IMyAlertProps {
 }
 
 const MyAlert: FC<IMyAlertProps> = ({title, message, type, visibility}) => {
+    if (!visibility) {
+        return null;
+    }
 
-    if (!visibility) return null
     return (
         <Alert severity={type}>
             <AlertTitle>{title}</AlertTitle>

@@ -1,31 +1,33 @@
-import React, {FC} from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import {authApi} from "../../authService";
+import React, {FC} from "react";
 import {Link} from "react-router-dom";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+
+import {authApi} from "../../authService";
 
 
 const SignUpForm: FC = () => {
-    const [createUser, {isError, isLoading}] = authApi.useCreateUserMutation()
+    const [createUser] = authApi.useCreateUserMutation();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const email = data.get('email')
-        const password = data.get('password')
-        const username = data.get('username')
+        const email = data.get("email");
+        const password = data.get("password");
+        const username = data.get("username");
+
         if (email && password && username) {
             createUser({
                 username: username.toString(),
                 email: email.toString(),
                 password: password.toString()
-            })
+            });
         }
     };
 
@@ -35,12 +37,12 @@ const SignUpForm: FC = () => {
             <Box
                 sx={{
                     marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -90,7 +92,7 @@ const SignUpForm: FC = () => {
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link to={'/login'}>
+                            <Link to={"/login"}>
                                 Already have an account? Sign in
                             </Link>
                         </Grid>

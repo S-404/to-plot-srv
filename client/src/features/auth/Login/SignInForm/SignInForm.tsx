@@ -1,44 +1,45 @@
-import React, {FC, useEffect, useState} from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import {authApi} from "../../authService";
+import React, {FC, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {authApi} from "@features/auth/authService";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import MyAlert from "@shared/UI/MyAlert";
+import {color} from "@shared/UI/types/TypesMUI";
+
 import {IAuthErrorResponse} from "../../models/IAuthResponse";
-import MyAlert from "../../../../shared/UI/MyAlert";
-import {color} from "../../../../shared/UI/types/TypesMUI";
 
 
 const SignInForm: FC = () => {
-    const [errorMessage, setErrorMessage] = useState<string>('')
-    const [login, {isError, isLoading, error}] = authApi.useLoginMutation()
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [login, {isError, isLoading, error}] = authApi.useLoginMutation();
 
     useEffect(() => {
         if (isError && error) {
-            const err = error as IAuthErrorResponse
-            setErrorMessage(err?.data?.message)
+            const err = error as IAuthErrorResponse;
+
+            setErrorMessage(err?.data?.message);
         }
-    }, [isError, error])
+    }, [isError, error]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const email = data.get('email')
-        const password = data.get('password')
+        const email = data.get("email");
+        const password = data.get("password");
 
         if (email && password) {
             login({
                 email: email.toString(),
                 password: password.toString()
-            })
+            });
         }
-
     };
 
 
@@ -48,12 +49,12 @@ const SignInForm: FC = () => {
             <Box
                 sx={{
                     marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
                     <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -87,17 +88,17 @@ const SignInForm: FC = () => {
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
                     >
-                        {isLoading ? 'Sign In...' : 'Sign In'}
+                        {isLoading ? "Sign In..." : "Sign In"}
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link to={'/restore-password'}>
+                            <Link to={"/restore-password"}>
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to={'/registration'}>
-                                Don't have an account? Sign Up
+                            <Link to={"/registration"}>
+                                {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
                     </Grid>
@@ -105,7 +106,7 @@ const SignInForm: FC = () => {
                         <MyAlert
                             type={color.error}
                             message={errorMessage}
-                            title={'Error'}
+                            title={"Error"}
                             visibility={isError}
                         />
                     </Box>

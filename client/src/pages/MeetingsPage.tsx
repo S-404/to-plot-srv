@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC} from "react";
 
-const MeetingsPage:FC = () => {
+const MeetingsPage: FC = () => {
     return (
         <div>
             meetings page

@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
-import SignInForm from "../features/auth/Login/SignInForm/SignInForm";
+import React, {FC} from "react";
+import SignInForm from "@features/auth/Login/SignInForm/SignInForm";
 
-const LoginPage:FC = () => {
+const LoginPage: FC = () => {
     return (
         <div>
             <SignInForm/>

@@ -1,12 +1,13 @@
+import {setAuth} from "@app/store/authSlicer";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {IUserCredentials} from "./models/IUser";
-import {setAuth} from "../../app/store/authSlicer";
-import {baseQueryWithReAuth} from "../../shared/api/interceptor";
-import {IAuthResponse} from "./models/IAuthResponse";
+import {baseQueryWithReAuth} from "@shared/api/interceptor";
 
-export const API_URL = process.env.REACT_APP_SERVER_URL
+import {IAuthResponse} from "./models/IAuthResponse";
+import {IUserCredentials} from "./models/IUser";
+
+export const API_URL = process.env.REACT_APP_SERVER_URL;
 export const authApiNoInterceptor = createApi({
-    reducerPath: 'authApiNoInterceptor',
+    reducerPath: "authApiNoInterceptor",
     baseQuery: fetchBaseQuery({
         baseUrl: API_URL,
         prepareHeaders(headers) {
@@ -17,30 +18,31 @@ export const authApiNoInterceptor = createApi({
     endpoints: (builder) => ({
         checkAuth: builder.mutation<IAuthResponse, null>({
             query: () => ({
-                url: 'auth/refresh',
-                method: 'GET',
+                url: "auth/refresh",
+                method: "GET",
             }),
             async onQueryStarted(id, {dispatch, queryFulfilled}) {
                 try {
-                    const {data} = await queryFulfilled
-                    localStorage.setItem("token", data.accessToken)
-                    dispatch(setAuth(true))
+                    const {data} = await queryFulfilled;
+
+                    localStorage.setItem("token", data.accessToken);
+                    dispatch(setAuth(true));
                 } catch (e) {
-                    console.error('authApiNoInterceptor', e)
+                    console.error("authApiNoInterceptor", e);
                 }
             },
         }),
     })
-})
+});
 
 export const authApi = createApi({
-    reducerPath: 'authApi',
+    reducerPath: "authApi",
     baseQuery: baseQueryWithReAuth,
     endpoints: (builder) => ({
         login: builder.mutation({
             query: ({email, password}: IUserCredentials) => ({
-                url: 'auth/login',
-                method: 'POST',
+                url: "auth/login",
+                method: "POST",
                 body: {
                     email,
                     password
@@ -48,33 +50,34 @@ export const authApi = createApi({
             }),
             async onQueryStarted(id, {dispatch, queryFulfilled}) {
                 try {
-                    const {data} = await queryFulfilled
-                    localStorage.setItem("token", data.accessToken)
-                    dispatch(setAuth(true))
+                    const {data} = await queryFulfilled;
+
+                    localStorage.setItem("token", data.accessToken);
+                    dispatch(setAuth(true));
                 } catch (e) {
-                    console.error('authApi', e)
+                    console.error("authApi", e);
                 }
             },
         }),
         logout: builder.mutation({
             query: () => ({
-                url: 'auth/logout',
-                method: 'POST',
+                url: "auth/logout",
+                method: "POST",
             }),
             async onQueryStarted(id, {dispatch, queryFulfilled}) {
                 try {
-                    await queryFulfilled
-                    localStorage.removeItem("token")
-                    dispatch(setAuth(false))
+                    await queryFulfilled;
+                    localStorage.removeItem("token");
+                    dispatch(setAuth(false));
                 } catch (e) {
-                    console.error('authApi logout', e)
+                    console.error("authApi logout", e);
                 }
             },
         }),
         createUser: builder.mutation({
             query: ({username, password, email}) => ({
-                url: 'auth/registration',
-                method: 'POST',
+                url: "auth/registration",
+                method: "POST",
                 body: {
                     username,
                     password,
@@ -83,4 +86,4 @@ export const authApi = createApi({
             }),
         })
     })
-})
+});
