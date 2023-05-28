@@ -2,18 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {Provider} from "react-redux";
 import App from "@app/App";
-import {store} from "@app/store/store";
+import {appStore} from "@app/store/appStore";
 
 import "./index.css";
 
-const appStore = store();
+const store = appStore();
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );
 
 root.render(
-    <Provider store={appStore}>
+    <Provider store={store}>
         <App/>
     </Provider>
 );

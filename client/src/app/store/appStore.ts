@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
     [authApiNoInterceptor.reducerPath]: authApiNoInterceptor.reducer
 });
 
-export const store = () => {
+export const appStore = () => {
     return configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
@@ -20,5 +20,5 @@ export const store = () => {
     });
 };
 
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof store>
+export type RootReducer = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof appStore>
