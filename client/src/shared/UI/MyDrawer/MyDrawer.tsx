@@ -4,10 +4,12 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 
-import DrawerList from "./DrawerList";
-
 const ANCHOR = "left";
-const MyDrawer: FC = () => {
+
+type MyAppBarProps = {
+    children: React.ReactNode;
+}
+export const MyDrawer: FC<MyAppBarProps> = ({children}) => {
     const [isVisible, setIsVisible] = React.useState<boolean>(false);
     const toggleDrawer = (open: boolean) => () => {
         setIsVisible(open);
@@ -36,11 +38,9 @@ const MyDrawer: FC = () => {
                     onClick={toggleDrawer(false)}
                     onKeyDown={toggleDrawer(false)}
                 >
-                    <DrawerList/>
+                    {children}
                 </Box>
             </Drawer>
         </>
     );
 };
-
-export default MyDrawer;
