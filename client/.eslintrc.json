@@ -6,7 +6,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "@feature-sliced/eslint-config/rules/layers-slices"
   ],
   "overrides": [
     {
@@ -109,6 +110,9 @@
     ],
     "switch-colon-spacing": 2,
     "template-curly-spacing": 2,
-    "template-tag-spacing": 2
+    "template-tag-spacing": 2,
+
+    // feature-sliced/layers-slices
+    "boundaries/element-types": "error"
   }
 }
