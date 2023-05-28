@@ -1,11 +1,12 @@
 import React, {FC} from "react";
-import SignUpForm from "@features/auth/Registration/SignUpForm/SignUpForm";
+import {SignUpForm} from "@features/auth/Registration";
+import Box from "@mui/material/Box";
 
 const RegistrationPage: FC = () => {
     return (
-        <div>
+        <Box>
             <SignUpForm/>
-        </div>
+        </Box>
     );
 };
 

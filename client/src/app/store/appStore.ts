@@ -1,24 +1,36 @@
-import {authApi, authApiNoInterceptor} from "@features/auth/authService";
+import {rtkQueryErrorMiddleware} from "@app/store/rtkQueryErrorMiddleware";
+import {authApi} from "@entities/auth/api/authApi";
+import authSlicer from "@entities/auth/model/authSlice";
+import {invalidateAccessTokenListener} from "@features/auth/invalidateAccessToken";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-
-import authSlicer from "./authSlicer";
+import {setupListeners} from "@reduxjs/toolkit/query";
 
 
 const rootReducer = combineReducers({
     auth: authSlicer,
     [authApi.reducerPath]: authApi.reducer,
-    [authApiNoInterceptor.reducerPath]: authApiNoInterceptor.reducer
 });
 
-export const appStore = () => {
-    return configureStore({
+export function makeStore() {
+    const store = configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
-                .concat(authApi.middleware)
-                .concat(authApiNoInterceptor.middleware)
-    });
-};
+                .concat(
+                    authApi.middleware,
+                    invalidateAccessTokenListener.middleware,
+                    rtkQueryErrorMiddleware,
+                )
 
-export type RootReducer = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof appStore>
+    });
+
+    setupListeners(store.dispatch);
+
+    return store;
+}
+
+export const appStore = makeStore();
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = typeof appStore
+export type AppDispatch = typeof appStore.dispatch

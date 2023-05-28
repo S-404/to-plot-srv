@@ -1,6 +1,6 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC} from "react";
 import {Link} from "react-router-dom";
-import {authApi} from "@features/auth/authService";
+import {authApi} from "@entities/auth/api/authApi";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -10,23 +10,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import MyAlert from "@shared/UI/MyAlert";
-import {color} from "@shared/UI/types/TypesMUI";
-
-import {IAuthErrorResponse} from "../../models/IAuthResponse";
 
 
-const SignInForm: FC = () => {
-    const [errorMessage, setErrorMessage] = useState<string>("");
-    const [login, {isError, isLoading, error}] = authApi.useLoginMutation();
-
-    useEffect(() => {
-        if (isError && error) {
-            const err = error as IAuthErrorResponse;
-
-            setErrorMessage(err?.data?.message);
-        }
-    }, [isError, error]);
+export const SignInForm: FC = () => {
+    const [login, {isLoading}] = authApi.useLoginMutation();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -102,18 +89,8 @@ const SignInForm: FC = () => {
                             </Link>
                         </Grid>
                     </Grid>
-                    <Box>
-                        <MyAlert
-                            type={color.error}
-                            message={errorMessage}
-                            title={"Error"}
-                            visibility={isError}
-                        />
-                    </Box>
                 </Box>
             </Box>
         </Container>
     );
 };
-
-export default SignInForm;

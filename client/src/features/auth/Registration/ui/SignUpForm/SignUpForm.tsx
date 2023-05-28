@@ -1,5 +1,6 @@
 import React, {FC} from "react";
 import {Link} from "react-router-dom";
+import {useRegistrationMutation} from "@entities/auth";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -10,11 +11,9 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-import {authApi} from "../../authService";
 
-
-const SignUpForm: FC = () => {
-    const [createUser] = authApi.useCreateUserMutation();
+export const SignUpForm: FC = () => {
+    const [registration] = useRegistrationMutation();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -23,7 +22,7 @@ const SignUpForm: FC = () => {
         const username = data.get("username");
 
         if (email && password && username) {
-            createUser({
+            registration({
                 username: username.toString(),
                 email: email.toString(),
                 password: password.toString()
@@ -102,5 +101,3 @@ const SignUpForm: FC = () => {
         </Container>
     );
 };
-
-export default SignUpForm;

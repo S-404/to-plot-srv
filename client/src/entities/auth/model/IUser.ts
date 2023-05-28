@@ -6,5 +6,4 @@ export interface IUserCredentials {
 export interface IUser extends IUserCredentials {
     id: number;
     username: string;
-
 }

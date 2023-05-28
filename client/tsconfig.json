@@ -3,6 +3,7 @@
     /*  https://www.typescriptlang.org/tsconfig  */
 
     "target": "esnext",
+    "types": ["vite/client"],
     "lib": [
       "dom",
       "esnext"
