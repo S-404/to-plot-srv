@@ -1,5 +1,6 @@
-import {authApi} from "@entities/auth/api/authApi";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
+import {authApi} from "../api/authApi";
 
 export interface IAuthState {
     isAuth: boolean;

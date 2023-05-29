@@ -1,5 +1,4 @@
-import {authApi} from "@entities/auth/api/authApi";
-import {setAuth} from "@entities/auth/model/authSlice";
+import {authApi, setAuth} from "@entities/auth";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {AUTH_TAG} from "@shared/api";
 import {delay} from "@shared/lib";
