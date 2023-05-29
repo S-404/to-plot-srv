@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {SignInForm} from "@features/auth/Login";
+import {SignInForm} from "@features/auth/login";
 
 const LoginPage: FC = () => {
     return (

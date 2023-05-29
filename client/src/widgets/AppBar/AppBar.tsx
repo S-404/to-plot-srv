@@ -1,6 +1,6 @@
 import React, {FC} from "react";
-import {LoginButton} from "@features/auth/Login";
-import {LogoutButton} from "@features/auth/Logout";
+import {LoginButton} from "@features/auth/login";
+import {LogoutButton} from "@features/auth/logout";
 import {useTypedSelector} from "@shared/lib";
 import {MyAppBar} from "@shared/UI/MyAppBar";
 import {MyDrawer} from "@shared/UI/MyDrawer";

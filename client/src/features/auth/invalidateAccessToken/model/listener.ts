@@ -1,4 +1,4 @@
-import {logoutThunk} from "@features/auth/Logout";
+import {logoutThunk} from "@features/auth/logout";
 import {createListenerMiddleware, TypedStartListening} from "@reduxjs/toolkit";
 import {invalidateAccessToken} from "@shared/api";
 
