@@ -9,25 +9,38 @@ import EnhancedTableHead from "./components/EnhancedTableHead";
 import EnhancedTableToolbar from "./components/EnhancedTableToolbar";
 import MyTableBody from "./components/MyTableBody";
 import {getComparator, stableSort} from "./lib/stableSort";
-import {HeadCell, Order, TableData, TableSize} from "./types";
+import {IHeadCell, ITableData, IToolBarProps,Order, TableSize} from "./types";
 
 
 export interface IMyTableProps {
-    size: TableSize;
-    headCells: HeadCell[];
-    rows: TableData[];
+    size?: TableSize;
+    headCells: IHeadCell[];
+    rows: ITableData[];
+    initialOrderBy?: keyof ITableData;
+    initialOrder?: Order;
+    toolBarProps: IToolBarProps;
+    selected: readonly number[];
+    setSelected: React.Dispatch<React.SetStateAction<readonly number[]>>;
 }
 
-export const MyTable: FC<IMyTableProps> = ({size, headCells, rows}) => {
-    const [order, setOrder] = React.useState<Order>("asc");
-    const [orderBy, setOrderBy] = React.useState<keyof TableData>("id");
-    const [selected, setSelected] = React.useState<readonly number[]>([]);
+export const MyTable: FC<IMyTableProps> = ({
+                                               size = "medium",
+                                               headCells,
+                                               rows,
+                                               initialOrderBy = "id",
+                                               initialOrder = "asc",
+                                               toolBarProps,
+                                               selected,
+                                               setSelected
+                                           }) => {
+    const [order, setOrder] = React.useState<Order>(initialOrder);
+    const [orderBy, setOrderBy] = React.useState<keyof ITableData>(initialOrderBy);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
-        property: keyof TableData,
+        property: keyof ITableData,
     ) => {
         const isAsc = orderBy === property && order === "asc";
 
@@ -37,7 +50,7 @@ export const MyTable: FC<IMyTableProps> = ({size, headCells, rows}) => {
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.id);
+            const newSelected = rows.map((n) => n.id.value);
 
             setSelected(newSelected);
 
@@ -91,7 +104,7 @@ export const MyTable: FC<IMyTableProps> = ({size, headCells, rows}) => {
     return (
         <Box sx={{width: "100%"}}>
             <Paper sx={{width: "100%", mb: 2}}>
-                <EnhancedTableToolbar numSelected={selected.length}/>
+                <EnhancedTableToolbar numSelected={selected.length} {...toolBarProps}/>
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}

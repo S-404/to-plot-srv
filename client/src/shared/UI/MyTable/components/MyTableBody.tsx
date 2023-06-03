@@ -3,12 +3,13 @@ import Checkbox from "@mui/material/Checkbox";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
+import Box from "@mui/material/Box";
 
-import {TableData, TableSize} from "../types";
+import {ITableData, TableSize} from "../types";
 
 
 interface MyTableBodyProps {
-    visibleRows: TableData[];
+    visibleRows: ITableData[];
     emptyRows: number;
     selected: readonly number[];
     size: TableSize;
@@ -18,21 +19,20 @@ interface MyTableBodyProps {
 const MyTableBody: FC<MyTableBodyProps> = ({visibleRows, emptyRows, selected, size, handleClick}) => {
     const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
-
     return (
         <TableBody>
             {visibleRows.map((row) => {
-                const isItemSelected = isSelected(row.id);
-                const labelId = `enhanced-table-checkbox-${row.id}`;
+                const isItemSelected = isSelected(row.id.value);
+                const labelId = `enhanced-table-checkbox-${row.id.value}`;
 
                 return (
                     <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.id)}
+                        onClick={(event) => handleClick(event, row.id.value)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row.id}
+                        key={row.id.value}
                         selected={isItemSelected}
                         sx={{cursor: "pointer"}}
                     >
@@ -46,22 +46,23 @@ const MyTableBody: FC<MyTableBodyProps> = ({visibleRows, emptyRows, selected, si
                             />
                         </TableCell>
                         {Object.keys(row).map((key) => (
-                                key === "id" ?
-                                    <TableCell
-                                        key={key}
-                                        id={labelId}
-                                        sx={{display: "none"}}
+                                !row[key].hidden &&
+                                <TableCell
+                                    id={key === "id" ? labelId : undefined}
+                                    key={key}
+                                    align={typeof row[key].value === "string" ? "left" : "right"}
+                                    padding={typeof row[key].value === "string" ? "none" : "normal"}
+                                >
+                                    <Box
+                                        component="span"
+                                        sx={row[key].icon ?
+                                            {display: "flex", alignItems: "center"} :
+                                            undefined}
                                     >
-                                        {row.id}
-                                    </TableCell>
-                                    :
-                                    <TableCell
-                                        key={key}
-                                        align={typeof row[key] === "string" ? "left" : "right"}
-                                        padding={typeof row[key] === "string" ? "none" : "normal"}
-                                    >
-                                        {row[key]}
-                                    </TableCell>
+                                        {row[key].icon}
+                                        {row[key].value}
+                                    </Box>
+                                </TableCell>
                             )
                         )}
                     </TableRow>

@@ -1,23 +1,23 @@
-import {Order} from "../types";
+import {ITableData, Order} from "../types";
 
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
+function descendingComparator(a: ITableData, b: ITableData, orderBy: keyof ITableData) {
+    if (b[orderBy].value < a[orderBy].value) {
         return -1;
     }
-    if (b[orderBy] > a[orderBy]) {
+    if (b[orderBy].value > a[orderBy].value) {
         return 1;
     }
 
     return 0;
 }
 
-export function getComparator<Key extends keyof any>(
+export function getComparator(
     order: Order,
-    orderBy: Key,
+    orderBy: keyof ITableData,
 ): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
+    a: ITableData,
+    b: ITableData,
 ) => number {
     return order === "desc"
         ? (a, b) => descendingComparator(a, b, orderBy)
