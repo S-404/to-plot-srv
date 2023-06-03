@@ -7,14 +7,14 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import {visuallyHidden} from "@mui/utils";
 
-import {EnhancedTableProps, TableData} from "../types";
+import {IEnhancedTableProps, ITableData} from "../types";
 
 
-const EnhancedTableHead: FC<EnhancedTableProps> = (props) => {
+const EnhancedTableHead: FC<IEnhancedTableProps> = (props) => {
     const {onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort} =
         props;
     const createSortHandler =
-        (property: keyof TableData) => (event: React.MouseEvent<unknown>) => {
+        (property: keyof ITableData) => (event: React.MouseEvent<unknown>) => {
             onRequestSort(event, property);
         };
 
@@ -33,6 +33,7 @@ const EnhancedTableHead: FC<EnhancedTableProps> = (props) => {
                     />
                 </TableCell>
                 {props.headCells.map((headCell) => (
+                    !headCell.hidden &&
                     <TableCell
                         key={headCell.id}
                         align={headCell.numeric ? "right" : "left"}

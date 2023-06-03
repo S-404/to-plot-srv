@@ -1,13 +1,11 @@
 import React, {FC} from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import IconButton from "@mui/material/IconButton";
 import {alpha} from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
-interface EnhancedTableToolbarProps {
+import {IToolBarProps} from "../types";
+
+interface EnhancedTableToolbarProps extends IToolBarProps {
     numSelected: number;
 }
 
@@ -41,22 +39,14 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Nutrition
+                    {props.title}
                 </Typography>
             )}
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton>
-                        <DeleteIcon/>
-                    </IconButton>
-                </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterListIcon/>
-                    </IconButton>
-                </Tooltip>
-            )}
+            {numSelected > 0 ?
+                (<>{props.toolBarItems.selectedModeItem}</>)
+                :
+                (<>{props.toolBarItems.unselectedModeItem}</>)
+            }
         </Toolbar>
     );
 };
