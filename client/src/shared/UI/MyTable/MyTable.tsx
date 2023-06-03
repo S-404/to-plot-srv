@@ -9,7 +9,7 @@ import EnhancedTableHead from "./components/EnhancedTableHead";
 import EnhancedTableToolbar from "./components/EnhancedTableToolbar";
 import MyTableBody from "./components/MyTableBody";
 import {getComparator, stableSort} from "./lib/stableSort";
-import {IHeadCell, ITableData, IToolBarProps,Order, TableSize} from "./types";
+import {IHeadCell, ITableData, IToolBarProps, Order, TableSize} from "./types";
 
 
 export interface IMyTableProps {
@@ -21,6 +21,7 @@ export interface IMyTableProps {
     toolBarProps: IToolBarProps;
     selected: readonly number[];
     setSelected: React.Dispatch<React.SetStateAction<readonly number[]>>;
+    handleDoubleClick?: (id: number) => void;
 }
 
 export const MyTable: FC<IMyTableProps> = ({
@@ -31,7 +32,8 @@ export const MyTable: FC<IMyTableProps> = ({
                                                initialOrder = "asc",
                                                toolBarProps,
                                                selected,
-                                               setSelected
+                                               setSelected,
+                                               handleDoubleClick,
                                            }) => {
     const [order, setOrder] = React.useState<Order>(initialOrder);
     const [orderBy, setOrderBy] = React.useState<keyof ITableData>(initialOrderBy);
@@ -59,7 +61,9 @@ export const MyTable: FC<IMyTableProps> = ({
         setSelected([]);
     };
 
-    const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+    const handleOnCheckBoxClick = (event: React.MouseEvent<unknown>, id: number) => {
+        event.stopPropagation();
+
         const selectedIndex = selected.indexOf(id);
         let newSelected: readonly number[] = [];
 
@@ -77,6 +81,19 @@ export const MyTable: FC<IMyTableProps> = ({
         }
 
         setSelected(newSelected);
+    };
+
+    const handleOnRowClick = (event: React.MouseEvent<unknown>, id: number) => {
+        if (event.detail === 1) {
+            if (event.ctrlKey) {
+                handleOnCheckBoxClick(event, id);
+            } else {
+                setSelected([id]);
+            }
+        }
+        if (event.detail === 2 && handleDoubleClick) {
+            handleDoubleClick(id);
+        }
     };
 
     const handleChangePage = (event: unknown, newPage: number) => {
@@ -125,7 +142,8 @@ export const MyTable: FC<IMyTableProps> = ({
                             visibleRows={visibleRows}
                             emptyRows={emptyRows}
                             size={size}
-                            handleClick={handleClick}
+                            handleOnCheckBoxClick={handleOnCheckBoxClick}
+                            handleOnRowClick={handleOnRowClick}
                         />
                     </Table>
                 </TableContainer>
