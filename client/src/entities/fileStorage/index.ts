@@ -2,6 +2,7 @@ export {
     fileStorageApi,
     useCreateFileStorageItemMutation,
     useDeleteFileStorageItemMutation,
+    useDeleteFileStorageItemsMutation,
     useGetAllContentQuery,
     useGetFileStorageItemQuery,
     useGetStorageQuery,

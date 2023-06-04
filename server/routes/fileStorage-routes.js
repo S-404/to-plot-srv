@@ -12,5 +12,6 @@ router.post('/item', FileStorageItemController.createFileStorageItem)
 router.get('/item/:id', FileStorageItemController.getFileStorageItem)
 router.put('/item/:id', FileStorageItemController.updateFileStorageItem)
 router.delete('/item/:id', FileStorageItemController.deleteFileStorageItem)
+router.delete('/items', FileStorageItemController.deleteFileStorageItems)
 
 module.exports = router
