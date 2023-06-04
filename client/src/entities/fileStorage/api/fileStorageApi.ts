@@ -1,6 +1,6 @@
 import {
     CreateFileStorageItemQuery,
-    CreateFileStorageItemResult, DeleteFileStorageItemQuery,
+    CreateFileStorageItemResult, DeleteFileStorageItemQuery, DeleteFileStorageItemsQuery,
     GetAllContentResult, GetFileStorageItemQuery, GetFileStorageItemResult,
     GetStorageResult, UpdateFileStorageItemQuery, UpdateFileStorageItemResult
 } from "@entities/fileStorage/api/types";
@@ -43,10 +43,20 @@ export const fileStorageApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [FILE_STORAGE_TAG],
         }),
-        deleteFileStorageItem: build.mutation<null,DeleteFileStorageItemQuery>({
+        deleteFileStorageItem: build.mutation<null, DeleteFileStorageItemQuery>({
             query: (id) => ({
                 url: `api/file-storage/item/${id}`,
                 method: "DELETE",
+            }),
+            invalidatesTags: [FILE_STORAGE_TAG],
+        }),
+        deleteFileStorageItems: build.mutation<null, DeleteFileStorageItemsQuery>({
+            query: (ids) => ({
+                url: "api/file-storage/items",
+                method: "DELETE",
+                body: {
+                    ids
+                }
             }),
             invalidatesTags: [FILE_STORAGE_TAG],
         }),
@@ -60,4 +70,5 @@ export const {
     useGetFileStorageItemQuery,
     useUpdateFileStorageItemMutation,
     useDeleteFileStorageItemMutation,
+    useDeleteFileStorageItemsMutation,
 } = fileStorageApi;

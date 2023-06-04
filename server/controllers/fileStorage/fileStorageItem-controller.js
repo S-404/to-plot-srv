@@ -36,6 +36,18 @@ class FileStorageItemController {
         }
     }
 
+
+    async deleteFileStorageItems(req, res, next) {
+        try {
+            const {userId} = req.user
+            const {ids} = req.body
+            const items = await FileStorageItemService.deleteFileStorageItems({userId, ids})
+            return res.json(items)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async deleteFileStorageItem(req, res, next) {
         try {
             const {userId} = req.user

@@ -34,3 +34,5 @@ export type UpdateFileStorageItemResult = FileStorageItem
 
 export type DeleteFileStorageItemQuery = number
 
+export type DeleteFileStorageItemsQuery = number[]
+

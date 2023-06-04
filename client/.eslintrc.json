@@ -58,7 +58,6 @@
     "no-unused-private-class-members": 1,
     "accessor-pairs": 1,
     "block-scoped-var": 1,
-    "curly": "error",
     "eqeqeq": ["error", "smart"],
     "max-params": ["warn", 5],
     "no-alert": 2,

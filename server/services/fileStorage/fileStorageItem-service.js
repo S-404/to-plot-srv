@@ -63,6 +63,15 @@ class FileStorageItemService {
         return await item.save()
     }
 
+    async deleteFileStorageItems({userId, ids}) {
+        return await FileStorageItemsModel.destroy({
+            where: {
+                id: ids,
+                userId
+            }
+        })
+    }
+
     async deleteFileStorageItem({userId, id}) {
         const item = await this.getFileStorageItem({userId, id})
 
