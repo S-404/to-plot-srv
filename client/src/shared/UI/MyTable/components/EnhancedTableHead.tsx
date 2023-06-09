@@ -30,6 +30,7 @@ const EnhancedTableHead: FC<IEnhancedTableProps> = (props) => {
                         inputProps={{
                             "aria-label": "select all desserts",
                         }}
+                        sx={{display: props.showCheckbox ? "display" : "none"}}
                     />
                 </TableCell>
                 {props.headCells.map((headCell) => (
