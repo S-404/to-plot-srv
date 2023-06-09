@@ -22,6 +22,8 @@ export interface IMyTableProps {
     selected: readonly number[];
     setSelected: React.Dispatch<React.SetStateAction<readonly number[]>>;
     handleDoubleClick?: (id: number) => void;
+    showCheckbox?: boolean;
+    handleVisibleRows?: (rows: ITableData[]) => ITableData[];
 }
 
 export const MyTable: FC<IMyTableProps> = ({
@@ -34,6 +36,8 @@ export const MyTable: FC<IMyTableProps> = ({
                                                selected,
                                                setSelected,
                                                handleDoubleClick,
+                                               showCheckbox = false,
+                                               handleVisibleRows,
                                            }) => {
     const [order, setOrder] = React.useState<Order>(initialOrder);
     const [orderBy, setOrderBy] = React.useState<keyof ITableData>(initialOrderBy);
@@ -110,18 +114,27 @@ export const MyTable: FC<IMyTableProps> = ({
         page > 0 ? Math.max(0, ((1 + page) * rowsPerPage) - rows.length) : 0;
 
     const visibleRows = React.useMemo(
-        () =>
-            stableSort(rows, getComparator(order, orderBy)).slice(
+        () => {
+            let sortedData = stableSort(rows, getComparator(order, orderBy)).slice(
                 page * rowsPerPage,
                 (page * rowsPerPage) + rowsPerPage,
-            ),
-        [order, orderBy, page, rowsPerPage],
+            );
+
+            if (handleVisibleRows) {
+                sortedData = handleVisibleRows(sortedData);
+            }
+            return sortedData;
+        },
+        [order, orderBy, page, rowsPerPage, rows],
     );
 
     return (
         <Box sx={{width: "100%"}}>
             <Paper sx={{width: "100%", mb: 2}}>
-                <EnhancedTableToolbar numSelected={selected.length} {...toolBarProps}/>
+                <EnhancedTableToolbar
+                    numSelected={selected.length}
+                    {...toolBarProps}
+                />
                 <TableContainer>
                     <Table
                         sx={{minWidth: 750}}
@@ -136,6 +149,7 @@ export const MyTable: FC<IMyTableProps> = ({
                             onRequestSort={handleRequestSort}
                             rowCount={rows.length}
                             headCells={headCells}
+                            showCheckbox={showCheckbox}
                         />
                         <MyTableBody
                             selected={selected}
@@ -144,6 +158,7 @@ export const MyTable: FC<IMyTableProps> = ({
                             size={size}
                             handleOnCheckBoxClick={handleOnCheckBoxClick}
                             handleOnRowClick={handleOnRowClick}
+                            showCheckbox={showCheckbox}
                         />
                     </Table>
                 </TableContainer>

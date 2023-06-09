@@ -1,7 +1,6 @@
 import React, {FC} from "react";
 import {alpha} from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 
 import {IToolBarProps} from "../types";
 
@@ -23,29 +22,10 @@ const EnhancedTableToolbar: FC<EnhancedTableToolbarProps> = (props) => {
                 }),
             }}
         >
-            {numSelected > 0 ? (
-                <Typography
-                    sx={{flex: "1 1 100%"}}
-                    color="inherit"
-                    variant="subtitle1"
-                    component="div"
-                >
-                    {numSelected} selected
-                </Typography>
-            ) : (
-                <Typography
-                    sx={{flex: "1 1 100%"}}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    {props.title}
-                </Typography>
-            )}
             {numSelected > 0 ?
-                (<>{props.toolBarItems.selectedModeItem}</>)
+                (props.toolBarItems.selectedModeItem)
                 :
-                (<>{props.toolBarItems.unselectedModeItem}</>)
+                (props.toolBarItems.unselectedModeItem)
             }
         </Toolbar>
     );

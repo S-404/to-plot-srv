@@ -15,6 +15,7 @@ interface MyTableBodyProps {
     size: TableSize;
     handleOnCheckBoxClick: (event: React.MouseEvent<unknown>, id: number) => void;
     handleOnRowClick: (event: React.MouseEvent<unknown>, id: number) => void;
+    showCheckbox?: boolean;
 }
 
 const MyTableBody: FC<MyTableBodyProps> = ({
@@ -23,7 +24,8 @@ const MyTableBody: FC<MyTableBodyProps> = ({
                                                selected,
                                                size,
                                                handleOnCheckBoxClick,
-                                               handleOnRowClick
+                                               handleOnRowClick,
+                                               showCheckbox = false,
                                            }) => {
     const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
@@ -52,6 +54,7 @@ const MyTableBody: FC<MyTableBodyProps> = ({
                                 inputProps={{
                                     "aria-labelledby": labelId,
                                 }}
+                                sx={{display: showCheckbox ? "block" : "none"}}
                             />
                         </TableCell>
                         {Object.keys(row).map((key) => (

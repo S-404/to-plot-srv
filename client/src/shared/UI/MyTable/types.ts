@@ -2,7 +2,6 @@ import React from "react";
 
 
 export interface IToolBarProps {
-    title: string;
     toolBarItems: {
         selectedModeItem: React.ReactElement;
         unselectedModeItem: React.ReactElement;
@@ -40,5 +39,6 @@ export interface IEnhancedTableProps {
     orderBy: string;
     rowCount: number;
     headCells: IHeadCell[];
+    showCheckbox?: boolean;
 }
 
