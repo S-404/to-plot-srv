@@ -1,5 +1,6 @@
 import React, {FC} from "react";
-import NewFolderForm from "@features/fileStorage/createNewFolder/ui/newFolderForm";
+import {useCreateFileStorageItemMutation} from "@entities/fileStorage";
+import {FileStorageItemType} from "@entities/fileStorage";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import {Box, IconButton, Tooltip} from "@mui/material";
 import {MyModal, useModal} from "@shared/UI/Modals";

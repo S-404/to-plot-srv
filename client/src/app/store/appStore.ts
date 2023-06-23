@@ -1,9 +1,10 @@
-import {rtkQueryErrorMiddleware} from "@app/store/rtkQueryErrorMiddleware";
-import {authApi} from "@entities/auth/api/authApi";
-import authSlicer from "@entities/auth/model/authSlice";
+import {authApi} from "@entities/auth";
+import {authSlicer} from "@entities/auth";
 import {invalidateAccessTokenListener} from "@features/auth/invalidateAccessToken";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {setupListeners} from "@reduxjs/toolkit/query";
+
+import {rtkQueryErrorMiddleware} from "./rtkQueryErrorMiddleware";
 
 
 const rootReducer = combineReducers({

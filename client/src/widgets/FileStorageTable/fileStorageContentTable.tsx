@@ -1,7 +1,5 @@
 import React, {FC, useMemo} from "react";
-import {useGetAllContentQuery} from "@entities/fileStorage";
-import {FileStorageItemType} from "@entities/fileStorage/model";
-import {IFileStorageItem} from "@entities/fileStorage/model/IFileStorageItem";
+import {FileStorageItemType, IFileStorageItem, useGetAllContentQuery} from "@entities/fileStorage";
 import FolderIcon from "@mui/icons-material/Folder";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import {IHeadCell, ITableData, IToolBarProps, MyTable} from "@shared/UI/MyTable";

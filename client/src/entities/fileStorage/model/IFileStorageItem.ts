@@ -1,4 +1,4 @@
-import {IBaseFileStorageItem} from "@entities/fileStorage/model/IBaseFileStorageItem";
+import {IBaseFileStorageItem} from "./IBaseFileStorageItem";
 
 export enum FileStorageItemType {
     AVATAR = "avatar",

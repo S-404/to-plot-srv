@@ -1,4 +1,4 @@
-import {FileStorageItemType, IFileStorageItem} from "@entities/fileStorage/model/IFileStorageItem";
+import {FileStorageItemType, IFileStorageItem} from "./IFileStorageItem";
 
 
 export interface IFolder extends IFileStorageItem {

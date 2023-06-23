@@ -1,8 +1,13 @@
-import React from "react";
-import {Button, FormControl, InputLabel} from "@mui/material";
+import React, {FC} from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
+import {FormControl, InputLabel} from "@mui/material";
 import Input from "@mui/material/Input";
 
-const NewFolderForm = () => {
+interface NewFolderFormProps {
+    isLoading?: boolean;
+}
+
+const NewFolderForm: FC<NewFolderFormProps> = ({isLoading}) => {
     return (
         <FormControl sx={{
             display: "flex",
@@ -11,7 +16,13 @@ const NewFolderForm = () => {
         }}>
             <InputLabel htmlFor={"input_newFolderName"}>New folder Name</InputLabel>
             <Input autoFocus id={"input_newFolderName"} name={"name"}/>
-            <Button type={"submit"} variant="contained">Apply</Button>
+            <LoadingButton
+                loading={isLoading}
+                type={"submit"}
+                variant="contained"
+            >
+                Apply
+            </LoadingButton>
         </FormControl>
     );
 };

@@ -1,4 +1,4 @@
-import {FileStorageItemType, IAvatar, IFile, IFileStorage, IFolder} from "@entities/fileStorage/model";
+import {FileStorageItemType, IAvatar, IFile, IFileStorage, IFolder} from "../";
 
 
 export type GetStorageResult = IFileStorage

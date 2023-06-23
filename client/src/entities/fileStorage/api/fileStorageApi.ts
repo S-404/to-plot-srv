@@ -1,10 +1,11 @@
+import {baseApi, FILE_STORAGE_TAG} from "@shared/api";
+
 import {
     CreateFileStorageItemQuery,
     CreateFileStorageItemResult, DeleteFileStorageItemQuery, DeleteFileStorageItemsQuery,
     GetAllContentResult, GetFileStorageItemQuery, GetFileStorageItemResult,
     GetStorageResult, UpdateFileStorageItemQuery, UpdateFileStorageItemResult
-} from "@entities/fileStorage/api/types";
-import {baseApi, FILE_STORAGE_TAG} from "@shared/api";
+} from "./types";
 
 
 export const fileStorageApi = baseApi.injectEndpoints({
