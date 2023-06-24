@@ -11,7 +11,13 @@ class FileStorageItemService {
 
     async #defineStorage(userId, parentItemId, name) {
         const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
-        const parent = parentItemId ? await this.getFileStorageItem({userId, id: parentItemId}) : fileStorage
+        let parent = fileStorage
+
+        if (parentItemId) {
+            const parentFSItem = await this.getFileStorageItem({userId, id: parentItemId})
+            parent = parentFSItem || parent;
+        }
+
         return {
             fileStorage,
             fullPath: `${parent.fullPath}/${name}`
