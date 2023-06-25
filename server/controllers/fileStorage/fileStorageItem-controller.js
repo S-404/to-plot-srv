@@ -24,6 +24,17 @@ class FileStorageItemController {
         }
     }
 
+    async getItemContent(req, res, next) {
+        try {
+            const userId = req.user.userId
+            const id = req.params.id
+            const item = await FileStorageItemService.getItemContent({userId, id})
+            return res.json(item)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async updateFileStorageItem(req, res, next) {
         try {
             const {userId} = req.user

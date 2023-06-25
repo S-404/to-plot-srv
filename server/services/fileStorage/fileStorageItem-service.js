@@ -44,7 +44,26 @@ class FileStorageItemService {
     }
 
     async getFileStorageItem({userId, id}) {
-        if(id === 'null'){
+        const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
+
+        return await FileStorageItemsModel.findOne({
+            where: {
+                fileStorageId: fileStorage.id,
+                id
+            },
+            include: [{
+                model: FileStorageItemsModel,
+                as: "content",
+                where: {
+                    fileStorageId: fileStorage.id,
+                    parentItemId: id,
+                },
+                required: false,
+            }],
+        })
+    }
+    async getItemContent({userId, id}) {
+        if(isNaN(Number(id))){
             return await FileStorageService.getRootContent(userId);
         }
 
