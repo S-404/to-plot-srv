@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             this.belongsTo(models.FileStoragesModel, {foreignKey: 'fileStorageId'})
             this.hasMany(models.SharedItemsLinksModel, {foreignKey: 'fileStorageItemId'})
-            this.hasMany(models.FileStorageItemsModel, {foreignKey: 'parentItemId'})
+            this.hasMany(models.FileStorageItemsModel, {foreignKey: 'parentItemId', as: "content"})
             this.belongsTo(models.FileStorageItemsModel, {foreignKey: 'id'})
         }
     }

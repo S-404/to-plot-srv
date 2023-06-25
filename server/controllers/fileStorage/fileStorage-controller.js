@@ -21,6 +21,16 @@ class FileStorageController {
             next(e)
         }
     }
+
+    async getRootContent(req, res, next) {
+        try {
+            const {userId} = req.user
+            const fsData = await fileStorageService.getRootContent(userId)
+            return res.json(fsData)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new FileStorageController()
