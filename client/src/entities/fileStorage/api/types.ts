@@ -14,6 +14,13 @@ export type GetRootContentResult = {
     content: ContentType[];
 }
 
+export type GetCurrentFolderContentResult = {
+    content: ContentType[];
+}
+export type GetCurrentFolderContentQuery = {
+    currentFolderId?: number | null;
+}
+
 
 export type ContentType = IFile | IFolder;
 type FileStorageItem = IAvatar | IFolder | IFile

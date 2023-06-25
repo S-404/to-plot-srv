@@ -1,10 +1,10 @@
-import React, {FC, useEffect, useMemo} from "react";
+import React, {FC, useMemo} from "react";
 import {useDispatch} from "react-redux";
 import {
     FileStorageItemType,
     IFileStorageItem,
     setCurrentFolder,
-    useGetFileStorageItemQuery,
+    useGetCurrentFolderContentQuery,
     useLazyGetFileStorageItemQuery
 } from "@entities/fileStorage";
 import {ContentType} from "@entities/fileStorage/api/types";
@@ -39,11 +39,10 @@ const FileStorageContentTable: FC = () => {
     const currentFolder = useTypedSelector(state => state.fileStorage.currentFolder);
     const dispatch = useDispatch();
     const [getFileStorageItem] = useLazyGetFileStorageItemQuery();
-    const {data: currentFolderContent} = useGetFileStorageItemQuery(currentFolder?.id || null, {
-        refetchOnMountOrArgChange: currentFolder?.id,
-    });
-
-    useEffect(() => console.debug("fileStorageItem", currentFolderContent), [currentFolderContent]);
+    const {data: currentFolderContent} = useGetCurrentFolderContentQuery(
+        {currentFolderId: currentFolder?.id},
+        {refetchOnMountOrArgChange: currentFolder?.id,}
+    );
 
     const rows: ITableData[] = useMemo(() => {
         let result: ITableData[] = [];
@@ -95,18 +94,18 @@ const FileStorageContentTable: FC = () => {
 
     return (
         <>
-        <Typography>Path: {currentFolder ? currentFolder.fullPath : "/"}</Typography>
-        <MyTable
-            headCells={headCells}
-            rows={rows}
-            toolBarProps={toolBarProps}
-            selected={selected}
-            setSelected={onClickItemHandler}
-            initialOrderBy={"type"}
-            size={"small"}
-            showCheckbox={true}
-            handleDoubleClick={doubleClickHandler}
-        />
+            <Typography>Path: {currentFolder ? currentFolder.fullPath : "/"}</Typography>
+            <MyTable
+                headCells={headCells}
+                rows={rows}
+                toolBarProps={toolBarProps}
+                selected={selected}
+                setSelected={onClickItemHandler}
+                initialOrderBy={"type"}
+                size={"small"}
+                showCheckbox={true}
+                handleDoubleClick={doubleClickHandler}
+            />
         </>
     );
 };

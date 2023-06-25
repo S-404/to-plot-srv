@@ -7,12 +7,12 @@ export {
     useDeleteFileStorageItemMutation,
     useDeleteFileStorageItemsMutation,
     useGetAllContentQuery,
+    useGetCurrentFolderContentQuery,
     useGetFileStorageItemQuery,
     useGetRootContentQuery,
     useGetStorageQuery,
     useLazyGetFileStorageItemQuery,
-    useUpdateFileStorageItemMutation,
-} from "./api/fileStorageApi";
+    useUpdateFileStorageItemMutation} from "./api/fileStorageApi";
 export type {ContentType} from "./api/types";
 export {setCurrentFolder} from "./model/fileStorageSlice";
 export type {IAvatar} from "./model/IAvatar";
