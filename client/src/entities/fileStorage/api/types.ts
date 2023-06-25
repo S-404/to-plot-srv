@@ -7,20 +7,26 @@ export type GetAllContentResult = {
     avatar: IAvatar[];
     folders: IFolder[];
     files: IFile[];
-    fileStorageItems: (IFile | IFolder)[];
+    content: ContentType[];
 }
 
+export type GetRootContentResult = {
+    content: ContentType[];
+}
+
+
+export type ContentType = IFile | IFolder;
 type FileStorageItem = IAvatar | IFolder | IFile
 
 export type CreateFileStorageItemQuery = {
     type: FileStorageItemType;
     name: string;
-    parentItemId: number;
+    parentItemId: number | null;
 }
 export type CreateFileStorageItemResult = FileStorageItem
 
 
-export type GetFileStorageItemQuery = number
+export type GetFileStorageItemQuery = number | null
 export type GetFileStorageItemResult = FileStorageItem
 
 export type UpdateFileStorageItemQuery = {

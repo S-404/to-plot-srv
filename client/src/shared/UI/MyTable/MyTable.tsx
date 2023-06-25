@@ -20,25 +20,27 @@ export interface IMyTableProps {
     initialOrder?: Order;
     toolBarProps: IToolBarProps;
     selected: readonly number[];
-    setSelected: React.Dispatch<React.SetStateAction<readonly number[]>>;
+    setSelected: (item: readonly number[]) => void;
     handleDoubleClick?: (id: number) => void;
     showCheckbox?: boolean;
     handleVisibleRows?: (rows: ITableData[]) => ITableData[];
 }
 
-export const MyTable: FC<IMyTableProps> = ({
-                                               size = "medium",
-                                               headCells,
-                                               rows,
-                                               initialOrderBy = "id",
-                                               initialOrder = "asc",
-                                               toolBarProps,
-                                               selected,
-                                               setSelected,
-                                               handleDoubleClick,
-                                               showCheckbox = false,
-                                               handleVisibleRows,
-                                           }) => {
+export const MyTable: FC<IMyTableProps> = (
+    {
+        size = "medium",
+        headCells,
+        rows,
+        initialOrderBy = "id",
+        initialOrder = "asc",
+        toolBarProps,
+        selected,
+        setSelected,
+        handleDoubleClick,
+        showCheckbox = false,
+        handleVisibleRows,
+    }
+    ) => {
     const [order, setOrder] = React.useState<Order>(initialOrder);
     const [orderBy, setOrderBy] = React.useState<keyof ITableData>(initialOrderBy);
     const [page, setPage] = React.useState(0);
