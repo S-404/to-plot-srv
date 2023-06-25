@@ -1,12 +1,16 @@
-import React, {FC} from "react";
-import NewFolderForm from "@features/fileStorage/createNewFolder/ui/newFolderForm";
+import React, {FC, useEffect} from "react";
+import {FileStorageItemType, useCreateFileStorageItemMutation} from "@entities/fileStorage";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import {Box, IconButton, Tooltip} from "@mui/material";
+import {useTypedSelector} from "@shared/lib";
 import {MyModal, useModal} from "@shared/UI/Modals";
 
+import NewFolderForm from "./newFolderForm";
 
 export const CreateNewFolderButton: FC = () => {
     const {isOpen, open, close} = useModal();
+    const [addFolder, {isLoading, isSuccess}] = useCreateFileStorageItemMutation();
+    const fileStorage = useTypedSelector(state => state.fileStorage.currentFolder);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -14,10 +18,19 @@ export const CreateNewFolderButton: FC = () => {
         const name = data.get("name");
 
         if (name) {
-            console.debug("name", name);
+            addFolder({
+                name: `${name}`,
+                parentItemId: fileStorage?.id ?? null,
+                type: FileStorageItemType.FOLDER,
+            });
         }
-
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            close();
+        }
+    }, [isSuccess]);
 
     return (
         <>
@@ -33,7 +46,7 @@ export const CreateNewFolderButton: FC = () => {
                 maxWidth={"xs"}
             >
                 <Box component="form" onSubmit={handleSubmit}>
-                    <NewFolderForm/>
+                    <NewFolderForm isLoading={isLoading}/>
                 </Box>
             </MyModal>
         </>

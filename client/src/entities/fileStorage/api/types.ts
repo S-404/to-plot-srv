@@ -1,4 +1,4 @@
-import {FileStorageItemType, IAvatar, IFile, IFileStorage, IFolder} from "@entities/fileStorage/model";
+import {FileStorageItemType, IAvatar, IFile, IFileStorage, IFolder} from "../";
 
 
 export type GetStorageResult = IFileStorage
@@ -7,20 +7,33 @@ export type GetAllContentResult = {
     avatar: IAvatar[];
     folders: IFolder[];
     files: IFile[];
-    fileStorageItems: (IFile | IFolder)[];
+    content: ContentType[];
 }
 
+export type GetRootContentResult = {
+    content: ContentType[];
+}
+
+export type GetCurrentFolderContentResult = {
+    content: ContentType[];
+}
+export type GetCurrentFolderContentQuery = {
+    currentFolderId?: number | null;
+}
+
+
+export type ContentType = IFile | IFolder;
 type FileStorageItem = IAvatar | IFolder | IFile
 
 export type CreateFileStorageItemQuery = {
     type: FileStorageItemType;
     name: string;
-    parentItemId: number;
+    parentItemId: number | null;
 }
 export type CreateFileStorageItemResult = FileStorageItem
 
 
-export type GetFileStorageItemQuery = number
+export type GetFileStorageItemQuery = number | null
 export type GetFileStorageItemResult = FileStorageItem
 
 export type UpdateFileStorageItemQuery = {

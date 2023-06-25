@@ -11,7 +11,13 @@ class FileStorageItemService {
 
     async #defineStorage(userId, parentItemId, name) {
         const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
-        const parent = parentItemId ? await this.getFileStorageItem({userId, id: parentItemId}) : fileStorage
+        let parent = fileStorage
+
+        if (parentItemId) {
+            const parentFSItem = await this.getFileStorageItem({userId, id: parentItemId})
+            parent = parentFSItem || parent;
+        }
+
         return {
             fileStorage,
             fullPath: `${parent.fullPath}/${name}`
@@ -39,11 +45,44 @@ class FileStorageItemService {
 
     async getFileStorageItem({userId, id}) {
         const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
+
         return await FileStorageItemsModel.findOne({
             where: {
                 fileStorageId: fileStorage.id,
                 id
-            }
+            },
+            include: [{
+                model: FileStorageItemsModel,
+                as: "content",
+                where: {
+                    fileStorageId: fileStorage.id,
+                    parentItemId: id,
+                },
+                required: false,
+            }],
+        })
+    }
+    async getItemContent({userId, id}) {
+        if(isNaN(Number(id))){
+            return await FileStorageService.getRootContent(userId);
+        }
+
+        const fileStorage = await FileStorageService.getFileStorageByUserId(userId)
+
+        return await FileStorageItemsModel.findOne({
+            where: {
+                fileStorageId: fileStorage.id,
+                id
+            },
+            include: [{
+                model: FileStorageItemsModel,
+                as: "content",
+                where: {
+                    fileStorageId: fileStorage.id,
+                    parentItemId: id,
+                },
+                required: false,
+            }],
         })
     }
 

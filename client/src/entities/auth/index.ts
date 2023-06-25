@@ -1,3 +1,5 @@
+import authSlicer from "./model/authSlice";
+export {authSlicer};
 export {
     authApi,
     useLoginMutation,

@@ -1,4 +1,4 @@
-import {IBaseFileStorageItem} from "@entities/fileStorage/model/IBaseFileStorageItem";
+import {IBaseFileStorageItem} from "./IBaseFileStorageItem";
 
 export interface IFileStorage extends IBaseFileStorageItem {
     userId: number;

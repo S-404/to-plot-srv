@@ -39,6 +39,31 @@ class FileStorageService {
         return result
     }
 
+    async getRootContent(userId) {
+        const fs = await this.getFileStorageByUserId(userId)
+        if (!fs) {
+            throw ApiError.BadRequest("not found fileStorage")
+        }
+
+        const content = await FileStorageItemsModel.findAll({
+            where: {
+                fileStorageId: fs.id,
+                parentItemId: null
+            }
+        })
+        const result = {
+            content: []
+        }
+
+        if (content) {
+            const folders = content.filter(item => item.type === "folder")
+            const files = content.filter(item => item.type === "file")
+            result.content = folders.concat(files);
+        }
+
+        return result
+    }
+
 }
 
 module.exports = new FileStorageService()
