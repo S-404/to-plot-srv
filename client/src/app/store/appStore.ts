@@ -1,5 +1,6 @@
 import {authApi} from "@entities/auth";
 import {authSlicer} from "@entities/auth";
+import {fileStorageSlice} from "@entities/fileStorage";
 import {invalidateAccessTokenListener} from "@features/auth/invalidateAccessToken";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {setupListeners} from "@reduxjs/toolkit/query";
@@ -9,6 +10,7 @@ import {rtkQueryErrorMiddleware} from "./rtkQueryErrorMiddleware";
 
 const rootReducer = combineReducers({
     auth: authSlicer,
+    fileStorage: fileStorageSlice,
     [authApi.reducerPath]: authApi.reducer,
 });
 
