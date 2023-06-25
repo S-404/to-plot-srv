@@ -2,6 +2,7 @@ import React, {FC, useEffect} from "react";
 import {FileStorageItemType, useCreateFileStorageItemMutation} from "@entities/fileStorage";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import {Box, IconButton, Tooltip} from "@mui/material";
+import {useTypedSelector} from "@shared/lib";
 import {MyModal, useModal} from "@shared/UI/Modals";
 
 import NewFolderForm from "./newFolderForm";
@@ -9,6 +10,7 @@ import NewFolderForm from "./newFolderForm";
 export const CreateNewFolderButton: FC = () => {
     const {isOpen, open, close} = useModal();
     const [addFolder, {isLoading, isSuccess}] = useCreateFileStorageItemMutation();
+    const fileStorage = useTypedSelector(state => state.fileStorage.currentFolder);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -18,7 +20,7 @@ export const CreateNewFolderButton: FC = () => {
         if (name) {
             addFolder({
                 name: `${name}`,
-                parentItemId: 1,
+                parentItemId: fileStorage?.id ?? null,
                 type: FileStorageItemType.FOLDER,
             });
         }
