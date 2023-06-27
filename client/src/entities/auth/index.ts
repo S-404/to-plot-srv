@@ -6,4 +6,4 @@ export {
     useLogoutMutation,
     useRegistrationMutation
 } from "./api/authApi";
-export {setAuth} from "./model/authSlice";
+export {checkAuth, setAuth} from "./model/authSlice";
