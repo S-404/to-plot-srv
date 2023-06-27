@@ -16,6 +16,7 @@
     "@mui/lab": "^5.0.0-alpha.134",
     "@mui/material": "^5.11.14",
     "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
     "node": "^20.2.0",
     "notistack": "^3.0.1",
     "path": "^0.12.7",

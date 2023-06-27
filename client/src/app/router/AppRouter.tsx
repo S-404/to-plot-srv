@@ -1,11 +1,18 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
+import {useDispatch} from "react-redux";
 import {Route, Routes} from "react-router-dom";
+import {checkAuth} from "@entities/auth";
 import {useTypedSelector} from "@shared/lib/useTypedSelector";
 
 import {privateRoutes, publicRoutes} from "./routes";
 
 const AppRouter: FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
     const isAuth = useTypedSelector((state) => state.auth.isAuth);
+
+    useEffect(() => {
+        dispatch(checkAuth());
+    }, []);
 
     return (
         isAuth ?
