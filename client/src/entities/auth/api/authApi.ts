@@ -25,7 +25,13 @@ export const authApi = baseApi.injectEndpoints({
                 body
             }),
             invalidatesTags: [AUTH_TAG],
-        })
+        }),
+        refreshToken: build.query<IAuthResponse, void>({
+            query: () => ({
+                url: "auth/refresh",
+            }),
+            providesTags: [AUTH_TAG],
+        }),
     })
 });
 
@@ -33,4 +39,5 @@ export const {
     useLoginMutation,
     useLogoutMutation,
     useRegistrationMutation,
+    useLazyRefreshTokenQuery,
 } = authApi;
