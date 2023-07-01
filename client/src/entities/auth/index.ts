@@ -2,8 +2,9 @@ import authSlicer from "./model/authSlice";
 export {authSlicer};
 export {
     authApi,
+    useLazyRefreshTokenQuery,
     useLoginMutation,
     useLogoutMutation,
-    useRegistrationMutation
+    useRegistrationMutation,
 } from "./api/authApi";
-export {checkAuth, setAuth} from "./model/authSlice";
+export {setAuth} from "./model/authSlice";
