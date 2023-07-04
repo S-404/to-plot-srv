@@ -30,7 +30,6 @@ export const authApi = baseApi.injectEndpoints({
             query: () => ({
                 url: "auth/refresh",
             }),
-            providesTags: [AUTH_TAG],
         }),
     })
 });
